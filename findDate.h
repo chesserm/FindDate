@@ -34,7 +34,4 @@ int daysOfCurrentMonth(int currentMonth, int currentYear) {}
 // EFFECTS:  Retruns a string of the month's name
 string findMonthString(int currentMonth) {}
 
-
-
-
 #endif

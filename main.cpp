@@ -32,10 +32,11 @@ void introduction()
 }
 
 
-// REQURIES: Nothing, but receives user input
+// REQUIRES: Nothing.
 // MODIFIES: Nothing.
-// EFFECTS:  Calculates and ouputs date
-void calculateDate()
+// EFFECTS:  Gathers necessary data and calls calculateDate() to
+//           find result and print it.
+void gatherUserInput()
 {
 	cout << "Please enter the known date." << endl;
 	cout << "Day:   ";
@@ -80,10 +81,7 @@ void calculateDate()
 		cout << endl;  //Formatting
     }
 
-
-	
 	cout << "Would you like to find a new date before or after the entered date? ";
-	
 	string strBeforeAfter;
 	cin >> strBeforeAfter;
 	
@@ -94,24 +92,31 @@ void calculateDate()
 		cout << "Would you like to find a new date before or after the entered date? ";
 		cin >> strBeforeAfter;
 	}
-
 	
 	cout << "How many days " << strBeforeAfter << " the entered date would you like to calculate? ";
-
 	int intTotalDays;
 	cin >> intTotalDays;
 
+	// Formatting and ouputting the results
 	cout << "";
 	cout << "========================================================================================" << endl;
-	cout << "The date " << intTotalDays << " days " << strBeforeAfter << " " << findMonthString(intKnownMonth) << ", " << intKnownYear << "is";
+	cout << "The date " << intTotalDays << " days " << strBeforeAfter << " " << findMonthString(intKnownMonth) << ", " << intKnownYear << "is: ";
 
-	
+	// Ouput of the desired date is handled within the calculateDate() function
+	calculateDate(intKnownDay, intKnownMonth, intKnownYear, intTotalDays, strBeforeAfter); 
 
-    
-    
-    // Increment to target date
+}
+
+
+// REQURIES: valid ints and string values
+// MODIFIES: Nothing.
+// EFFECTS:  Calculates and ouputs desired date
+void calculateDate(int intKnownDay, int intKnownMonth, int intKnownYear, int intTotalDays, string& strBeforeAfter)
+{
+
+	// Increment to target date
     // Note: O(n) runtime
-    while (days > 0)
+    while (intTotalDays > 0)
     {
         // Wanting to find a date before entered day
         if (strBeforeAfter.tolower() == "before")
@@ -176,11 +181,19 @@ void calculateDate()
         --intTotalDays;
     }
 
+    // Ouput result
+    cout << findMonthString(intKnownMonth) << " " << intKnownDay << ", " << intKnownYear << " (" << intKnownMonth << "/" << intKnownDay << "/" << intKnownYear << ")." << endl;
+
+}
 
 
+// Main function
 int main()
 {
 	introduction();
 
+	// calculateDate() is called from within gatherUserInput()
+	gatherUserInput();
 
+	return 0;
 }
